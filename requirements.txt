@@ -42,7 +42,7 @@ setuptools==58.0.4
 #six==1.16.0
 #sqlite==3.37.2
 threadpoolctl==2.2.0
-tk==8.6.11
+tk==0.1.0
 werkzeug==2.0.2
 wheel==0.37.1
 xz==5.2.5
