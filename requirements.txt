@@ -14,9 +14,9 @@ itsdangerous==2.0.1
 jinja2==3.0.2
 joblib==1.1.0
 #libcxx==12.0.0
-libffi==3.3
-libgfortran==3.0.1
-llvm-openmp==12.0.0
+#libffi==3.3
+#libgfortran==3.0.1
+#llvm-openmp==12.0.0
 markupsafe==2.0.1
 mkl==2021.4.0
 mkl-service==2.4.0
