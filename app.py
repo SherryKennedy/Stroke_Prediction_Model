@@ -1,13 +1,12 @@
 
-#import os
-#import numpy as np
+
 import pandas as pd
 import pickle
 from flask import Flask, jsonify, request, render_template, url_for, session, redirect, flash
 
 app = Flask(__name__)
 
-model = pickle.load(open('rf_model_V11.pkl', 'rb'))
+model = pickle.load(open('rf_model_final_2.pkl', 'rb'))
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -37,8 +36,8 @@ def index():
             ever_married = int(req['ever_married'])    #int
             work_type = int(req['work_type'])           #int
             Residence_type = int(req['Residence_type'])  #int
-            avg_glucose_level =  round(float(req['avg_glucose_level']),6)  #float round to two decimal place
-            bmi = round(float(req['bmi']),2)                          #float round to one decimal place
+            avg_glucose_level =  round(float(req['avg_glucose_level']),6)  #float round 
+            bmi = round(float(req['bmi']),2)          #float round 
             smoking_status = int(req['smoking_status'])    # int
 
             
@@ -65,23 +64,20 @@ def index():
             #put into a datframe to go  into the model
             stroke_df = pd.DataFrame(stroke_list)
 
-            scaler_read = pickle.load(open('scaler.pkl', 'rb'))
-
-            test_data = scaler_read.transform(stroke_df)
-
-
             # add the first occurance only
-            arr = model.predict(test_data)[0]
-            #print("my array")
-            #print(arr)
+            arr = model.predict(stroke_df)[0]
+            print(arr)
+            if arr:
 
-
-            if float(arr) >= 0.5:
-                feedback = "\U0001f92d" + "Model predicted: At risk."
+                if float(arr) >= 0.5:
+                    feedback = "\U0001f92d" + "Model predicted: At risk."
+                else:
+                    feedback = "\U0001f600" + " Model predicted: Not at risk."
             else:
-                feedback = "\U0001f600" + " Model predicted: Not at risk."
+                feedback = "Sorry, no results at this time."
            
-            return render_template("index.html", feedback=feedback)
+           
+        return render_template("index.html", feedback=feedback)
            
     return render_template('index.html') # GET request yields upload page
     
