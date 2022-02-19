@@ -17,7 +17,7 @@ The dataset is from [Kaggle Stroke Prediction dataset](https://www.kaggle.com/fe
 
 # Architecture
 
-![Image of Application Architecture](./static/images/architecture.jpg)
+![Image of Application Architecture](./static/images/Architecture1.jpg)
 
 The above diagram is the cloud architecture of our stroke prediction system. Inside the cloud diagram we have our cloud services. The mongoDb Atlas database stores the cleaned kaggle stroke dataset that is loaded there. MongoDB Atlas retrieves the clean data to build the final model.  The final model file is pushed to Git Hub. We update our GitHub repo by merging the feature branch into the master branch and push up the changes. The changed part of the code of the website or layout will now be updated on GitHub. The 'Cloud Build' is set to manually deploy the code updates into the production flask container. Once this is done the changes will be seen on the website.
 
