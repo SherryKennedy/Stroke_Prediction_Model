@@ -2,11 +2,15 @@
 
 import pandas as pd
 import pickle
-from flask import Flask, jsonify, request, render_template, url_for, session, redirect, flash
+from flask import Flask, jsonify, request, render_template
+
 
 app = Flask(__name__)
 
-model = pickle.load(open('rf_model_final_2.pkl', 'rb'))
+global model
+
+# load the model from disk
+model = pickle.load(open('rf_model_final_4.pkl', 'rb'))
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -66,15 +70,15 @@ def index():
 
             # add the first occurance only
             arr = model.predict(stroke_df)[0]
-            print(arr)
-            if arr:
-
+            #print(arr)
+            feedback = "Sorry, no results at this time."
+            try:
                 if float(arr) >= 0.5:
                     feedback = "\U0001f92d" + "Model predicted: At risk."
                 else:
                     feedback = "\U0001f600" + " Model predicted: Not at risk."
-            else:
-                feedback = "Sorry, no results at this time."
+            except:
+                feedback = "Sorry, no results at this time. Please try again."
            
            
         return render_template("index.html", feedback=feedback)
